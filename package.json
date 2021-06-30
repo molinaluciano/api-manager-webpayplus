@@ -1,0 +1,27 @@
+{
+  "name": "api-webpay-plus",
+  "version": "1.0.0",
+  "description": "API  REST created to consume the API REST of webpay plus. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molinaluciano/api-manager-webpayplus.git"
+  },
+  "author": "Luciano Molina Arias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/molinaluciano/api-manager-webpayplus/issues"
+  },
+  "homepage": "https://github.com/molinaluciano/api-manager-webpayplus#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.8"
+  }
+}
