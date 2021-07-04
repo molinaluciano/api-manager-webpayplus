@@ -1,5 +1,8 @@
 const Transaction = require("../model/transaction");
-const { createTransaction } = require("../facade/transactionFacade");
+const {
+  createTransaction,
+  createCommit,
+} = require("../facade/transactionFacade");
 if (require("dotenv").config().error) {
   throw result.error;
 }
@@ -34,6 +37,19 @@ async function buildTransaction(amount, rut) {
   }
 }
 
+async function buildCommit(token) {
+  try {
+    const resultCommit = await createCommit(token);
+    return resultCommit;
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: transbankService.js ~ line 41 ~ buildCommit ~ error",
+      error
+    );
+  }
+}
+
 module.exports = {
   buildTransaction,
+  buildCommit,
 };

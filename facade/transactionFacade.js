@@ -5,9 +5,9 @@ if (require("dotenv").config().error) {
 
 const environment = process.env.NODE_ENV || "local";
 const config = require(`../config/environment/${environment}.config`);
-
 const instance = axios.create({
   baseURL: config.urls.transbankUrl,
+  headers: getHeaders(),
 });
 
 function getHeaders() {
@@ -20,13 +20,17 @@ function getHeaders() {
 function createTransaction(Transaction) {
   return new Promise((resolve, reject) => {
     instance
-      .post(
-        config.urls.transbankUrl + config.endPoint.transbankEndPoint,
-        Transaction,
-        {
-          headers: getHeaders(),
-        }
-      )
+      .post(config.endPoint.transbankEndPoint, Transaction)
+      .then((result) => resolve(result.data))
+      .catch((error) => reject(error));
+  });
+}
+
+function createCommit(token) {
+  url = config.endPoint.transbankEndPoint + token;
+  return new Promise((resolve, reject) => {
+    instance
+      .put(url)
       .then((result) => resolve(result.data))
       .catch((error) => reject(error));
   });
@@ -34,4 +38,5 @@ function createTransaction(Transaction) {
 
 module.exports = {
   createTransaction,
+  createCommit,
 };

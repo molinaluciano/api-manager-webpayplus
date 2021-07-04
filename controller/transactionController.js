@@ -1,13 +1,21 @@
-const { buildTransaction } = require("../service/transbankService");
+const {
+  buildTransaction,
+  buildCommit,
+} = require("../service/transbankService");
+
 async function composeTransaction(req, res) {
   const { amount, rut } = req.body;
   const transaction = await buildTransaction(amount, rut);
-  console.log(
-    "🚀 ~ file: transactionController.js ~ line 5 ~ composeTransaction ~ transaction",
-    transaction
-  );
+  res.status(200).send(transaction);
+}
+
+async function composeCommit(req, res) {
+  const { token } = req.params;
+  const commit = await buildCommit(token);
+  res.status(200).send(commit);
 }
 
 module.exports = {
   composeTransaction,
+  composeCommit,
 };

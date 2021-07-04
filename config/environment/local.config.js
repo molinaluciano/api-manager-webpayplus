@@ -3,7 +3,7 @@ module.exports = {
     transbankUrl: "https://webpay3gint.transbank.cl",
   },
   endPoint: {
-    transbankEndPoint: "/rswebpaytransaction/api/webpay/v1.0/transactions",
+    transbankEndPoint: "/rswebpaytransaction/api/webpay/v1.0/transactions/",
   },
   authentication: {
     tbkApiKeyId: "597055555532",
