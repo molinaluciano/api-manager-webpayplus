@@ -36,7 +36,18 @@ function createCommit(token) {
   });
 }
 
+function getStatus(token) {
+  url = config.endPoint.transbankEndPoint + token;
+  return new Promise((resolve, reject) => {
+    instance
+      .get(url)
+      .then((result) => resolve(result.data))
+      .catch((error) => reject(error));
+  });
+}
+
 module.exports = {
   createTransaction,
   createCommit,
+  getStatus,
 };

@@ -2,6 +2,7 @@ const Transaction = require("../model/transaction");
 const {
   createTransaction,
   createCommit,
+  getStatus,
 } = require("../facade/transactionFacade");
 if (require("dotenv").config().error) {
   throw result.error;
@@ -49,7 +50,20 @@ async function buildCommit(token) {
   }
 }
 
+async function askingStatus(token) {
+  try {
+    const result = await getStatus(token);
+    return result;
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: transbankService.js ~ line 56 ~ askingStatus ~ error",
+      error
+    );
+  }
+}
+
 module.exports = {
   buildTransaction,
   buildCommit,
+  askingStatus,
 };

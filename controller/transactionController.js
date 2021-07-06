@@ -1,6 +1,7 @@
 const {
   buildTransaction,
   buildCommit,
+  askingStatus,
 } = require("../service/transbankService");
 
 async function composeTransaction(req, res) {
@@ -15,7 +16,14 @@ async function composeCommit(req, res) {
   res.status(200).send(commit);
 }
 
+async function composeAskAboutStatus(req, res) {
+  const { token } = req.params;
+  const status = await askingStatus(token);
+  res.status(200).send(status);
+}
+
 module.exports = {
   composeTransaction,
   composeCommit,
+  composeAskAboutStatus,
 };
