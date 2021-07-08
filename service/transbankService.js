@@ -3,7 +3,10 @@ const {
   createTransaction,
   createCommit,
   getStatus,
+  refund,
+  capture,
 } = require("../facade/transactionFacade");
+const TransactionCapture = require("../model/transactionCapture");
 if (require("dotenv").config().error) {
   throw result.error;
 }
@@ -46,9 +49,32 @@ async function buildCommit(token) {
   }
 }
 
-async function askingStatus(token) {
+async function buildAskStatus(token) {
   try {
     const result = await getStatus(token);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function buildVoidAPayment(token, body) {
+  try {
+    const result = await refund(token, body);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function buildCapture(token, buy_order, authorization_code, amount) {
+  try {
+    const transaction = new TransactionCapture(
+      buy_order,
+      authorization_code,
+      amount
+    );
+    const result = await capture(token, transaction);
     return result;
   } catch (error) {
     throw error;
@@ -58,5 +84,7 @@ async function askingStatus(token) {
 module.exports = {
   buildTransaction,
   buildCommit,
-  askingStatus,
+  buildAskStatus,
+  buildVoidAPayment,
+  buildCapture,
 };

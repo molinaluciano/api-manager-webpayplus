@@ -14,6 +14,7 @@ const instance = axios.create({
 
 function getHeaders() {
   return {
+    "Content-Type": "application/json",
     "Tbk-Api-Key-Id": config.authentication.tbkApiKeyId,
     "Tbk-Api-Key-Secret": `${config.authentication.tbkApiKeySecret}`,
   };
@@ -54,8 +55,34 @@ function getStatus(token) {
   });
 }
 
+function refund(token, body) {
+  url = config.endPoint.transbankEndPoint + token + "/refunds";
+  return new Promise((resolve, reject) => {
+    instance
+      .post(url, body)
+      .then((result) => resolve(result.data))
+      .catch((error) =>
+        reject(new transactionNotFoundError(error.response.data.error_message))
+      );
+  });
+}
+
+function capture(token, transaction) {
+  url = config.endPoint.transbankEndPoint + token + "/capture";
+  return new Promise((resolve, reject) => {
+    instance
+      .put(url, transaction)
+      .then((result) => resolve(result.data))
+      .catch((error) => {
+        reject(new transactionNotFoundError(error.response.data.error_message));
+      });
+  });
+}
+
 module.exports = {
   createTransaction,
   createCommit,
   getStatus,
+  refund,
+  capture,
 };
