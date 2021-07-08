@@ -4,7 +4,7 @@
   "description": "API  REST created to consume the API REST of webpay plus. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,11 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-validation": "^3.0.8"
   },
   "devDependencies": {
+    "jest": "^27.0.6",
     "nodemon": "^2.0.8"
   }
 }

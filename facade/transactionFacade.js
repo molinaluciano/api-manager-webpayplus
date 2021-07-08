@@ -1,4 +1,6 @@
 const axios = require("axios");
+const CreateTransactionError = require("../error/createTransactionError");
+const transactionNotFoundError = require("../error/transactionNotFoundError");
 if (require("dotenv").config().error) {
   throw result.error;
 }
@@ -22,7 +24,9 @@ function createTransaction(Transaction) {
     instance
       .post(config.endPoint.transbankEndPoint, Transaction)
       .then((result) => resolve(result.data))
-      .catch((error) => reject(error));
+      .catch((error) => {
+        reject(new CreateTransactionError(error.response.data.error_message));
+      });
   });
 }
 
@@ -32,7 +36,9 @@ function createCommit(token) {
     instance
       .put(url)
       .then((result) => resolve(result.data))
-      .catch((error) => reject(error));
+      .catch((error) => {
+        reject(new transactionNotFoundError(error.response.data.error_message));
+      });
   });
 }
 
@@ -42,7 +48,9 @@ function getStatus(token) {
     instance
       .get(url)
       .then((result) => resolve(result.data))
-      .catch((error) => reject(error));
+      .catch((error) =>
+        reject(new transactionNotFoundError(error.response.data.error_message))
+      );
   });
 }
 

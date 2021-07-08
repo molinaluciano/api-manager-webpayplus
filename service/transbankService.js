@@ -13,7 +13,7 @@ const config = require(`../config/environment/${ENV}.config.js`);
 async function buildTransaction(amount, rut) {
   const session_id = new Date().getTime();
   const nroRandom = Math.ceil(Math.random() * 1000000);
-  const buyOrder = rut + nroRandom;
+  const buyOrder = nroRandom + session_id;
 
   const transaction = new Transaction(
     buyOrder,
@@ -22,20 +22,19 @@ async function buildTransaction(amount, rut) {
     config.transbank.returnUrl
   );
 
+  let responseResult = [];
   try {
     const resultTransaction = await createTransaction(transaction);
 
-    const resultToRead = {
+    responseResult = {
       url: resultTransaction.url + "?token_ws=" + resultTransaction.token,
       token: resultTransaction.token,
     };
-    return resultToRead;
   } catch (error) {
-    console.log(
-      "🚀 ~ file: transbankService.js ~ line 24 ~ buildTransaction ~ error",
-      error
-    );
+    throw error;
   }
+
+  return responseResult;
 }
 
 async function buildCommit(token) {
@@ -43,10 +42,7 @@ async function buildCommit(token) {
     const resultCommit = await createCommit(token);
     return resultCommit;
   } catch (error) {
-    console.log(
-      "🚀 ~ file: transbankService.js ~ line 41 ~ buildCommit ~ error",
-      error
-    );
+    throw error;
   }
 }
 
@@ -55,10 +51,7 @@ async function askingStatus(token) {
     const result = await getStatus(token);
     return result;
   } catch (error) {
-    console.log(
-      "🚀 ~ file: transbankService.js ~ line 56 ~ askingStatus ~ error",
-      error
-    );
+    throw error;
   }
 }
 
