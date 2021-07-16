@@ -24,7 +24,9 @@ function createTransaction(Transaction) {
   return new Promise((resolve, reject) => {
     instance
       .post(config.endPoint.transbankEndPoint, Transaction)
-      .then((result) => resolve(result.data))
+      .then((result) => {
+        resolve(result.data);
+      })
       .catch((error) => {
         reject(new CreateTransactionError(error.response.data.error_message));
       });

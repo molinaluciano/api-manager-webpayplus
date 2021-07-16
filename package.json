@@ -4,7 +4,7 @@
   "description": "API  REST created to consume the API REST of webpay plus. ",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --env=node --watchAll"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,10 @@
     "express-validation": "^3.0.8"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "jest": "^27.0.6",
-    "nodemon": "^2.0.8"
+    "nodemon": "^2.0.8",
+    "supertest": "^6.1.3"
   }
 }
