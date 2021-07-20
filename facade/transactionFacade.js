@@ -35,6 +35,7 @@ function createTransaction(Transaction) {
 
 function createCommit(token) {
   url = config.endPoint.transbankEndPoint + token;
+
   return new Promise((resolve, reject) => {
     instance
       .put(url)
@@ -50,10 +51,12 @@ function getStatus(token) {
   return new Promise((resolve, reject) => {
     instance
       .get(url)
-      .then((result) => resolve(result.data))
-      .catch((error) =>
-        reject(new transactionNotFoundError(error.response.data.error_message))
-      );
+      .then((result) => {
+        resolve(result.data);
+      })
+      .catch((error) => {
+        reject(new transactionNotFoundError(error.response.data.error_message));
+      });
   });
 }
 
