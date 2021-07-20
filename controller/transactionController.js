@@ -24,6 +24,7 @@ async function composeTransaction(req, res) {
 async function composeCommit(req, res) {
   const { token } = req.params;
   let response = [];
+
   try {
     response = await buildCommit(token);
     response = responseData(response);
@@ -36,6 +37,7 @@ async function composeCommit(req, res) {
 async function composeAskAboutStatus(req, res) {
   const { token } = req.params;
   let response = [];
+
   try {
     const status = await buildAskStatus(token);
     response = responseData(status);
@@ -49,6 +51,7 @@ async function composeARefund(req, res) {
   const { token } = req.params;
   const body = req.body;
   let response = [];
+
   try {
     const status = await buildVoidAPayment(token, body);
     response = responseData(status);
@@ -62,6 +65,7 @@ async function composeACapture(req, res) {
   const { token } = req.params;
   const { buy_order, authorization_code, amount } = req.body;
   let response = [];
+
   try {
     const capture = await buildCapture(
       token,
