@@ -24,10 +24,6 @@ async function buildTransaction(amount, rut) {
     amount,
     config.transbank.returnUrl
   );
-  console.log(
-    "🚀 ~ file: transbankService.js ~ line 27 ~ buildTransaction ~ transaction",
-    transaction
-  );
 
   let responseResult = [];
   try {
