@@ -1,10 +1,10 @@
 const axios = require("axios");
 const CreateTransactionError = require("../error/createTransactionError");
 const transactionNotFoundError = require("../error/transactionNotFoundError");
+
 if (require("dotenv").config().error) {
   throw result.error;
 }
-
 const environment = process.env.NODE_ENV || "local";
 const config = require(`../config/environment/${environment}.config`);
 const instance = axios.create({
